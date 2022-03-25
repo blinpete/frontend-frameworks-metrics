@@ -1,4 +1,4 @@
-import keys from './keys'
+import { getMetrics } from './metrics'
 import entries from './entries.json'
 
 import __localData from './data.json'
@@ -9,14 +9,6 @@ async function mockedFetch(url) {
     json: async () => __localData[url]
   }
   return mock
-}
-
-function getMetrics(obj) {
-  const subset = {}
-  for (const k of keys)
-    subset[k] = obj[k]
-
-  return subset
 }
 
 export default async function loadData() {

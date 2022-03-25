@@ -1,5 +1,5 @@
 <script setup>
-import keys from '@/keys'
+import { metrics } from '@/metrics'
 
 defineProps({
   data: Array,
@@ -10,10 +10,10 @@ defineProps({
 table
   thead
     tr.theader
-      th(v-for="k in keys" :class="k").key {{k}}
+      th(v-for="m in metrics" :class="m.key").key {{m.alias}}
   tbody
     tr(v-for="item in data").entry
-      td(v-for="k in keys") {{item[k]}}
+      td(v-for="m in metrics") {{item[m.key]}}
 </template>
 
 <style scoped>

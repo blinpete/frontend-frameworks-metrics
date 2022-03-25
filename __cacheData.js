@@ -1,15 +1,8 @@
 import nodeFetch from 'node-fetch'
 import { writeFileSync } from 'fs'
-import keys from './src/keys.js'
+
+import { getMetrics } from './src/metrics.js'
 import entries from './src/entries.json' assert {type: "json"}
-
-function getMetrics(obj) {
-  const subset = {}
-  for (const k of keys)
-    subset[k] = obj[k]
-
-  return subset
-}
 
 async function loadData() {
   console.log('entries:', entries)
