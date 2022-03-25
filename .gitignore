@@ -1,3 +1,6 @@
+# Cache
+/src/data.json
+
 # Logs
 logs
 *.log
