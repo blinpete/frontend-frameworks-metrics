@@ -1,21 +1,36 @@
 <script setup>
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
-import HelloWorld from './components/HelloWorld.vue'
+import { onMounted, ref } from 'vue';
+import ViewTable from './components/ViewTable.vue'
+import useLoadData from './useLoadData'
+
+const data = ref(null)
+
+onMounted(async () => {
+  data.value = await useLoadData()
+})
+
+console.log('[App] data:', data)
 </script>
 
-<template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Hello Vue 3 + Vite" />
+<template lang="pug">
+header
+  h1 Frontend Frameworks: GitHub Stats
+ViewTable(v-if="data" :data="data")
 </template>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+:root {
+  --gh-white: hsl(204deg 33% 97%);
+  --gh-black: hsl(210deg 12% 16%);
+}
+
+body {
+  background-color: var(--gh-white);
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+  color: var(--gh-black);
+}
+
+header {
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
 }
 </style>
