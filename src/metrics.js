@@ -2,6 +2,8 @@
 // organization.avatar_url
 // owner.avatar_url
 
+import { formatTimeAgo } from "./utils"
+
 // contributors count
 // open pull-requests count
 
@@ -43,10 +45,30 @@ export const metrics = [
   // "has_pages",
 ]
 
+function handleValue(obj, key) {
+
+  // TODO: use type-safe Github API response
+  // for now just using predicates based on semantics
+  const handlers = {
+    date: {
+      predicate: key => key.endsWith('_at'),
+      render: value => formatTimeAgo(new Date(value))
+    },
+  }
+
+  for (const [,h] of Object.entries(handlers)) {
+    if (h.predicate(key)) return h.render(obj[key])
+  }
+
+  // fallback
+  return obj[key]
+}
+
 export function getMetrics(obj) {
   const subset = {}
-  for (const m of metrics)
-    subset[m.key] = obj[m.key]
+  for (const m of metrics) {
+    subset[m.key] = handleValue(obj, m.key)
+  }
 
   return subset
 }
