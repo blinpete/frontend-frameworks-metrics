@@ -1,2 +1,2 @@
 export { formatTimeAgo } from './date'
-export { kFormatNumber } from './number'
+export { kFormatNumber, spaceFormatNumber } from './number'

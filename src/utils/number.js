@@ -13,3 +13,9 @@ export function kFormatNumber(n, minDigits=2) {
   return res + 'k'
 }
 
+export function spaceFormatNumber(n) {
+  const base = 1000
+  if (n < base) return n
+
+  return n.toLocaleString('en-us')
+}

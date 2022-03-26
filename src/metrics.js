@@ -2,7 +2,7 @@
 // organization.avatar_url
 // owner.avatar_url
 
-import { formatTimeAgo, kFormatNumber } from "./utils"
+import { formatTimeAgo, kFormatNumber, spaceFormatNumber } from "./utils"
 
 // contributors count
 // open pull-requests count
@@ -57,7 +57,8 @@ function handleValue(obj, key) {
 
     k1000: {
       predicate: key => key.endsWith('_count'),
-      render: value => kFormatNumber(value)
+      // render: value => kFormatNumber(value)
+      render: value => spaceFormatNumber(value)
     }
   }
 
