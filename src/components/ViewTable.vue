@@ -17,17 +17,22 @@ table
 </template>
 
 <style scoped>
+table {
+  /* margin: 0 auto; */
+  width: 100%;
+}
+
 thead {
   background-color: var(--gh-black);
   color: #fff;
 }
 
 th {
-  padding: 8px 12px;
+  padding: 10px 12px;
 }
 
 .entry td {
   background-color: #fff;
-  padding: 5px;
+  padding: 8px;
 }
 </style>

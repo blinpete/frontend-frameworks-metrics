@@ -15,7 +15,8 @@ console.log('[App] data:', data)
 <template lang="pug">
 header
   h1 Frontend Frameworks: GitHub Stats
-ViewTable(v-if="data" :data="data")
+main
+  ViewTable(v-if="data" :data="data")
 </template>
 
 <style>
