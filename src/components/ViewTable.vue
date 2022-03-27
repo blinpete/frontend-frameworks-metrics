@@ -18,7 +18,6 @@ table
 
 <style scoped>
 table {
-  /* margin: 0 auto; */
   width: 100%;
 }
 
@@ -31,8 +30,16 @@ th {
   padding: 10px 12px;
 }
 
-.entry td {
+tbody tr {
   background-color: #fff;
+}
+
+tbody tr:hover {
+  background-color: hsl(0, 0%, 95%);
+}
+
+tbody td {
+  background-color: inherit;
   padding: 8px;
 }
 </style>
