@@ -1,6 +1,8 @@
 # Cache
 /src/data.json
 
+secret-token.json
+
 # Logs
 logs
 *.log

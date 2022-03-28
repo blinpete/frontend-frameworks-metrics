@@ -7,9 +7,11 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "cache": "node --experimental-json-modules __cacheData.js"
+    "cache": "node --experimental-json-modules --experimental-specifier-resolution=node __cacheData.js",
+    "fetch:graphql": "node --experimental-json-modules --experimental-specifier-resolution=node __fetchDataGraphQL.js"
   },
   "dependencies": {
+    "@octokit/graphql": "^4.8.0",
     "vue": "^3.2.25"
   },
   "devDependencies": {
