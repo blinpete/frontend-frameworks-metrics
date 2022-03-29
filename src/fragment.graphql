@@ -1,0 +1,6 @@
+fragment repoMetadata on Repository {
+  nameWithOwner
+  stargazerCount
+  forkCount
+  createdAt
+}
