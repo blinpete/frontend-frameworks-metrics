@@ -1,7 +1,7 @@
 [
-  { "url":" https://api.github.com/repos/vuejs/vue" },
-  { "url":" https://api.github.com/repos/facebook/react" },
-  { "url":" https://api.github.com/repos/angular/angular" },
-  { "url":" https://api.github.com/repos/sveltejs/svelte" },
-  { "url":" https://api.github.com/repos/marko-js/marko" }
+  { "owner": "vuejs", "repo": "vue" },
+  { "owner": "facebook", "repo": "react" },
+  { "owner": "angular", "repo": "angular" },
+  { "owner": "sveltejs", "repo": "svelte" },
+  { "owner": "marko-js", "repo": "marko" }
 ]
