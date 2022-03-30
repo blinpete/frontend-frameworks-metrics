@@ -1,2 +1,2 @@
-schema: "./schema.docs.graphql"
+schema: "./githubSchema.graphql"
 documents: "src/**/*.{graphql,js,ts}"
