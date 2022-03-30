@@ -45,11 +45,16 @@ export const metrics = [
   // "has_pages",
 ]
 
-function handleValue(obj, key) {
+function handleValue(obj: Record<string,number|string>, key:string) {
+
+  type Handler = {
+    predicate: (key: string) => boolean,
+    render: (value: number | string) => number | string
+  }
 
   // TODO: use type-safe Github API response
   // for now just using predicates based on semantics
-  const handlers = {
+  const handlers:Record<string,Handler> = {
     date: {
       predicate: key => key.endsWith('_at'),
       render: value => formatTimeAgo(new Date(value))
@@ -70,8 +75,8 @@ function handleValue(obj, key) {
   return obj[key]
 }
 
-export function getMetrics(obj) {
-  const subset = {}
+export function getMetrics(obj: Record<string,string|number>) {
+  const subset: typeof obj = {}
   for (const m of metrics) {
     subset[m.key] = handleValue(obj, m.key)
   }

@@ -2,11 +2,11 @@ import { getMetrics } from './metrics'
 import entries from './entries.json'
 
 import __localData from './data.json'
-async function mockedFetch(url) {
+async function mockedFetch(url: string) {
   console.log('[mockedFetch]', url)
   const mock = {
     ok: !!__localData[url],
-    json: async () => __localData[url]
+    json: async () => __localData[url] as Record<string,string|number>
   }
   return mock
 }

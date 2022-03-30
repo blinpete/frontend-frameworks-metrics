@@ -1,9 +1,9 @@
-<script setup>
+<script lang="ts" setup>
 import { onMounted, ref } from 'vue';
 import ViewTable from './components/ViewTable.vue'
 import useLoadData from './useLoadData'
 
-const data = ref(null)
+const data = ref<null|Record<string,string|number>[]>(null)
 
 onMounted(async () => {
   data.value = await useLoadData()
