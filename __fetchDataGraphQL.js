@@ -11,9 +11,7 @@ import repoFragment from './src/repoFragment.js'
 
 import { graphql } from '@octokit/graphql'
 
-
 async function loadData() {
-
   const ghAPI = graphql.defaults({
     headers: {
       authorization: 'token ' + token.value,
@@ -24,11 +22,14 @@ async function loadData() {
     ${repoFragment}
 
     {
-      ${entries.map((entry,idx) =>
-        `repo_${idx}: repository(owner: "${entry.owner}", name: "${entry.repo}") {
+      ${entries
+        .map(
+          (entry, idx) =>
+            `repo_${idx}: repository(owner: "${entry.owner}", name: "${entry.repo}") {
           ...repoFragment
         }`
-      ).join('\n')}
+        )
+        .join('\n')}
     }
   `
 
@@ -48,7 +49,6 @@ async function loadData() {
   })
   console.log('[loadData] response:', response)
   console.log('[loadData] response.createdAt:', typeof response.repo_1.createdAt)
-
 
   // const response = await nodeFetch('https://api.github.com/graphql', {
   //   method: 'POST',

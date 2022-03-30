@@ -1,8 +1,7 @@
-
 // organization.avatar_url
 // owner.avatar_url
 
-import { formatTimeAgo, kFormatNumber, spaceFormatNumber } from "./utils"
+import { formatTimeAgo, kFormatNumber, spaceFormatNumber } from './utils'
 
 // contributors count
 // open pull-requests count
@@ -17,24 +16,24 @@ import { formatTimeAgo, kFormatNumber, spaceFormatNumber } from "./utils"
 // -------------
 
 export const metrics = [
-  { key: "homepage", alias: "logo" },
-  { key: "size", alias: "size" },
+  { key: 'homepage', alias: 'logo' },
+  { key: 'size', alias: 'size' },
 
   // --------------------> counts
-  { key: "stargazers_count", alias: "stars" },
-  { key: "forks_count", alias: "forks" },
-  { key: "open_issues_count", alias: "issues" },
-  { key: "subscribers_count", alias: "watchers" },
+  { key: 'stargazers_count', alias: 'stars' },
+  { key: 'forks_count', alias: 'forks' },
+  { key: 'open_issues_count', alias: 'issues' },
+  { key: 'subscribers_count', alias: 'watchers' },
 
   // --------------------> booleans: is
   // { key: "archived", alias: "" },
   // { key: "disabled", alias: "" },
 
-  { key: "language", alias: "language" },
+  { key: 'language', alias: 'language' },
 
   // --------------------> dates
-  { key: "created_at", alias: "created" },
-  { key: "updated_at", alias: "updated" },
+  { key: 'created_at', alias: 'created' },
+  { key: 'updated_at', alias: 'updated' },
   // { key: "pushed_at", alias: "" },
 
   // --------------------> booleans: has
@@ -45,29 +44,28 @@ export const metrics = [
   // "has_pages",
 ]
 
-function handleValue(obj: Record<string,number|string>, key:string) {
-
+function handleValue(obj: Record<string, number | string>, key: string) {
   type Handler = {
-    predicate: (key: string) => boolean,
+    predicate: (key: string) => boolean
     render: (value: number | string) => number | string
   }
 
   // TODO: use type-safe Github API response
   // for now just using predicates based on semantics
-  const handlers:Record<string,Handler> = {
+  const handlers: Record<string, Handler> = {
     date: {
       predicate: key => key.endsWith('_at'),
-      render: value => formatTimeAgo(new Date(value))
+      render: value => formatTimeAgo(new Date(value)),
     },
 
     k1000: {
       predicate: key => key.endsWith('_count'),
       // render: value => kFormatNumber(value)
-      render: value => spaceFormatNumber(value)
-    }
+      render: value => spaceFormatNumber(value),
+    },
   }
 
-  for (const [,h] of Object.entries(handlers)) {
+  for (const [, h] of Object.entries(handlers)) {
     if (h.predicate(key)) return h.render(obj[key])
   }
 
@@ -75,7 +73,7 @@ function handleValue(obj: Record<string,number|string>, key:string) {
   return obj[key]
 }
 
-export function getMetrics(obj: Record<string,string|number>) {
+export function getMetrics(obj: Record<string, string | number>) {
   const subset: typeof obj = {}
   for (const m of metrics) {
     subset[m.key] = handleValue(obj, m.key)

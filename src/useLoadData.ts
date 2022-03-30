@@ -6,7 +6,7 @@ async function mockedFetch(url: string) {
   console.log('[mockedFetch]', url)
   const mock = {
     ok: !!__localData[url],
-    json: async () => __localData[url] as Record<string,string|number>
+    json: async () => __localData[url] as Record<string, string | number>,
   }
   return mock
 }

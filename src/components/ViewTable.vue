@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { metrics } from '@/metrics'
 
-defineProps<{ data: {[key: string]: any} }>()
+defineProps<{ data: { [key: string]: any } }>()
 </script>
 
 <template lang="pug">
