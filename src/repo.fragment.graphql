@@ -1,4 +1,4 @@
-fragment repoMetadata on Repository {
+fragment repoFragment on Repository {
   nameWithOwner
   stargazerCount
   forkCount
