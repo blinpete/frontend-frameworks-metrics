@@ -1,10 +1,13 @@
-import nodeFetch from 'node-fetch'
+// import nodeFetch from 'node-fetch'
 import { writeFileSync } from 'fs'
 
-import { getMetrics } from './src/metrics.js'
+// import { getMetrics } from './src/metrics'
 
-// import entries from './src/entries.json' assert {type: "json"}
-import token from './secret-token.json' assert {type: "json"}
+const entries = require('./src/entries.json')
+const token = require('./secret-token.json')
+
+// import repoFragment from "./src/repo.fragment.graphql"
+import repoFragment from './src/repoFragment.js'
 
 import { graphql } from '@octokit/graphql'
 
@@ -17,22 +20,13 @@ async function loadData() {
     },
   })
 
-  const entries = [
-    {owner: 'vuejs', repo: 'vue'},
-    {owner: 'facebook', repo: 'react'},
-  ]
-
-  const query = `
-    fragment repoMetadata on Repository {
-      nameWithOwner
-      stargazerCount
-      createdAt
-    }
+  const query = `#graphql
+    ${repoFragment}
 
     {
       ${entries.map((entry,idx) =>
         `repo_${idx}: repository(owner: "${entry.owner}", name: "${entry.repo}") {
-          ...repoMetadata
+          ...repoFragment
         }`
       ).join('\n')}
     }
