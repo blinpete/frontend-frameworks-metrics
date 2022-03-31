@@ -1,4 +1,3 @@
-import { getMetrics } from './metrics'
 import entries from './entries.json'
 
 import token from '../secret-token.json'
@@ -49,9 +48,7 @@ export default async function loadData() {
     // query: queryCheckLimit,
   })
   console.log('[loadData] response:', response)
-  console.log('[loadData] response.createdAt:', typeof response.repo_1.createdAt)
 
-  const data = [...Object.values(response)] //.map(getMetrics)
-
+  const data = [...Object.values(response)]
   return data
 }

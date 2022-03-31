@@ -22118,4 +22118,4 @@ export type WorkflowRunPendingDeploymentRequestsArgs = {
   last?: InputMaybe<Scalars['Int']>;
 };
 
-export type RepoFragmentFragment = { __typename?: 'Repository', nameWithOwner: string, stargazerCount: number, forkCount: number, updatedAt: any };
+export type RepoFragmentFragment = { __typename?: 'Repository', nameWithOwner: string, homepageUrl?: any | null, stargazerCount: number, forkCount: number, createdAt: any, updatedAt: any, url: any, owner: { __typename?: 'Organization', avatarUrl: any } | { __typename?: 'User', avatarUrl: any } };
