@@ -1,14 +1,9 @@
-<script setup>
-import { onMounted, ref } from 'vue';
+<script lang="ts" setup>
+import { ref } from 'vue'
 import ViewTable from './components/ViewTable.vue'
-import useLoadData from './useLoadData'
+import useData from './useData'
 
-const data = ref(null)
-
-onMounted(async () => {
-  data.value = await useLoadData()
-})
-
+const data = ref(useData())
 console.log('[App] data:', data)
 </script>
 
@@ -27,7 +22,8 @@ main
 
 body {
   background-color: var(--gh-white);
-  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif,
+    'Apple Color Emoji', 'Segoe UI Emoji';
   color: var(--gh-black);
 }
 

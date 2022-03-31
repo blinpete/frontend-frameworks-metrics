@@ -1,19 +1,17 @@
-<script setup>
+<script lang="ts" setup>
 import { metrics } from '@/metrics'
 
-defineProps({
-  data: Array,
-})
+defineProps<{ data: { [key: string]: any } }>()
 </script>
 
 <template lang="pug">
 table
   thead
     tr.theader
-      th(v-for="m in metrics" :class="m.key").key {{m.alias}}
+      th(v-for="(m, key) in metrics" :class="key").key {{m.alias}}
   tbody
     tr(v-for="item in data").entry
-      td(v-for="m in metrics") {{item[m.key]}}
+      td(v-for="(_, key) in metrics") {{item[key].value}}
 </template>
 
 <style scoped>

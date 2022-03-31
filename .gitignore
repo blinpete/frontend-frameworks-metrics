@@ -1,5 +1,8 @@
 # Cache
 /src/data.json
+/src/reposData.json
+
+secret-token.json
 
 # Logs
 logs

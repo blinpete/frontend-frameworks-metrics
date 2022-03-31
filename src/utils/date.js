@@ -2,7 +2,7 @@
 // https://blog.webdevsimplified.com/2020-07/relative-time-format/
 
 const formatter = new Intl.RelativeTimeFormat(undefined, {
-  numeric: 'auto'
+  numeric: 'auto',
 })
 
 const DIVISIONS = [
@@ -12,7 +12,7 @@ const DIVISIONS = [
   { amount: 7, name: 'days' },
   { amount: 4.34524, name: 'weeks' },
   { amount: 12, name: 'months' },
-  { amount: Number.POSITIVE_INFINITY, name: 'years' }
+  { amount: Number.POSITIVE_INFINITY, name: 'years' },
 ]
 
 export function formatTimeAgo(date) {
