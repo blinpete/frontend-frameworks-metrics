@@ -8,8 +8,9 @@
     "preview": "vite preview",
     "typecheck": "vue-tsc --noEmit -p tsconfig.json --composite false",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
-    "fetch:graphql": "node __fetchDataGraphQL.js",
-    "graphql-update-types": "graphql-codegen --config graphql.codegen.yaml"
+    "graphql:fetch": "esr __fetchDataGraphQL.ts",
+    "graphql:generate-types": "graphql-codegen --config graphql.codegen.yaml",
+    "update:metrics": "npm run graphql:fetch && npm run graphql:generate-types"
   },
   "dependencies": {
     "@octokit/graphql": "^4.8.0",
