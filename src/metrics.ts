@@ -1,13 +1,5 @@
-// organization.avatar_url
-// owner.avatar_url
-
 import { formatTimeAgo, kFormatNumber, spaceFormatNumber } from './utils'
-
-// contributors count
-// open pull-requests count
-
-// last release version
-// last release time
+import type { Repository } from '@octokit/graphql-schema'
 
 // -------------
 // @primer/octicons API
@@ -15,25 +7,32 @@ import { formatTimeAgo, kFormatNumber, spaceFormatNumber } from './utils'
 // https://primer.style/octicons/guidelines/usage
 // -------------
 
-export const metrics = [
-  { key: 'homepage', alias: 'logo' },
-  { key: 'size', alias: 'size' },
+import type { RepoFragmentFragment as RepoFragment } from './generated/githubSchema.graphql'
+
+type MetricsEntry = {
+  key: keyof RepoFragment
+  alias: string
+}
+
+export const metrics: MetricsEntry[] = [
+  // { key: 'homepageUrl', alias: 'logo' },
+  // { key: 'size', alias: 'size' },
 
   // --------------------> counts
-  { key: 'stargazers_count', alias: 'stars' },
-  { key: 'forks_count', alias: 'forks' },
-  { key: 'open_issues_count', alias: 'issues' },
-  { key: 'subscribers_count', alias: 'watchers' },
+  { key: 'stargazerCount', alias: 'stars' },
+  { key: 'forkCount', alias: 'forks' },
+  // { key: 'open_issues_count', alias: 'issues' },
+  // { key: 'subscribers_count', alias: 'watchers' },
 
   // --------------------> booleans: is
   // { key: "archived", alias: "" },
   // { key: "disabled", alias: "" },
 
-  { key: 'language', alias: 'language' },
+  // { key: 'language', alias: 'language' },
 
   // --------------------> dates
-  { key: 'created_at', alias: 'created' },
-  { key: 'updated_at', alias: 'updated' },
+  { key: 'createdAt', alias: 'created' },
+  // { key: 'updated_at', alias: 'updated' },
   // { key: "pushed_at", alias: "" },
 
   // --------------------> booleans: has
@@ -44,7 +43,7 @@ export const metrics = [
   // "has_pages",
 ]
 
-function handleValue(obj: Record<string, number | string>, key: string) {
+function handleValue(obj: Repository, key: keyof RepoFragment) {
   type Handler = {
     predicate: (key: string) => boolean
     render: (value: number | string) => number | string
@@ -73,11 +72,12 @@ function handleValue(obj: Record<string, number | string>, key: string) {
   return obj[key]
 }
 
-export function getMetrics(obj: Record<string, string | number>) {
-  const subset: typeof obj = {}
+export function getMetrics(obj: Repository) {
+  const subset: Partial<RepoFragment> = {}
+
   for (const m of metrics) {
     subset[m.key] = handleValue(obj, m.key)
   }
 
-  return subset
+  return subset as RepoFragment
 }
