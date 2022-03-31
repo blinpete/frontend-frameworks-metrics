@@ -1,12 +1,13 @@
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue'
 import ViewTable from './components/ViewTable.vue'
-import useLoadData from './useLoadData'
+import useData from './useData'
+import type { RepoFragmentFragment } from './graphql'
 
-const data = ref<null | Record<string, string | number>[]>(null)
+const data = ref<null | RepoFragmentFragment[]>(null)
 
 onMounted(async () => {
-  data.value = await useLoadData()
+  data.value = await useData()
 })
 
 console.log('[App] data:', data)

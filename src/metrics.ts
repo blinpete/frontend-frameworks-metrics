@@ -1,5 +1,5 @@
 import { formatTimeAgo, kFormatNumber, spaceFormatNumber } from './utils'
-import type { Repository } from '@octokit/graphql-schema'
+import type { RepoFragmentFragment as RepoFragment } from './graphql'
 
 // -------------
 // @primer/octicons API
@@ -7,77 +7,35 @@ import type { Repository } from '@octokit/graphql-schema'
 // https://primer.style/octicons/guidelines/usage
 // -------------
 
-import type { RepoFragmentFragment as RepoFragment } from './generated/githubSchema.graphql'
+type RepoKey = Exclude<keyof RepoFragment, '__typename'>
+type Handlers = {
+  // [K in keyof RepoFragment]: (value: RepoFragment[K]) => RepoFieldView<K>
+  [K in RepoKey]: (value: RepoFragment[K]) => { value?: string | number }
+}
+type Metrics = { [K in RepoKey]: string }
 
-type MetricsEntry = {
-  key: keyof RepoFragment
-  alias: string
+const handlers: Handlers = {
+  nameWithOwner: () => ({}),
+  stargazerCount: (value: number) => ({ value: spaceFormatNumber(value) }),
+  forkCount: (value: number) => ({ value: spaceFormatNumber(value) }),
+  updatedAt: (value: string) => ({ value: formatTimeAgo(new Date(value)) }),
 }
 
-export const metrics: MetricsEntry[] = [
-  // { key: 'homepageUrl', alias: 'logo' },
-  // { key: 'size', alias: 'size' },
-
-  // --------------------> counts
-  { key: 'stargazerCount', alias: 'stars' },
-  { key: 'forkCount', alias: 'forks' },
-  // { key: 'open_issues_count', alias: 'issues' },
-  // { key: 'subscribers_count', alias: 'watchers' },
-
-  // --------------------> booleans: is
-  // { key: "archived", alias: "" },
-  // { key: "disabled", alias: "" },
-
-  // { key: 'language', alias: 'language' },
-
-  // --------------------> dates
-  { key: 'createdAt', alias: 'created' },
-  // { key: 'updated_at', alias: 'updated' },
-  // { key: "pushed_at", alias: "" },
-
-  // --------------------> booleans: has
-  // "has_issues",
-  // "has_projects",
-  // "has_downloads",
-  // "has_wiki",
-  // "has_pages",
-]
-
-function handleValue(obj: Repository, key: keyof RepoFragment) {
-  type Handler = {
-    predicate: (key: string) => boolean
-    render: (value: number | string) => number | string
-  }
-
-  // TODO: use type-safe Github API response
-  // for now just using predicates based on semantics
-  const handlers: Record<string, Handler> = {
-    date: {
-      predicate: key => key.endsWith('_at'),
-      render: value => formatTimeAgo(new Date(value)),
-    },
-
-    k1000: {
-      predicate: key => key.endsWith('_count'),
-      // render: value => kFormatNumber(value)
-      render: value => spaceFormatNumber(value),
-    },
-  }
-
-  for (const [, h] of Object.entries(handlers)) {
-    if (h.predicate(key)) return h.render(obj[key])
-  }
-
-  // fallback
-  return obj[key]
+function applyHandler<K extends RepoKey>(name: K, value: RepoFragment[K]) {
+  return { key: name, originalValue: value, value, ...handlers[name](value) }
 }
 
-export function getMetrics(obj: Repository) {
-  const subset: Partial<RepoFragment> = {}
+export const MetricsAliases: Metrics = {
+  nameWithOwner: 'repo',
+  stargazerCount: 'stars',
+  forkCount: 'forks',
+  updatedAt: 'updated',
+}
 
-  for (const m of metrics) {
-    subset[m.key] = handleValue(obj, m.key)
-  }
+export function processData(obj: RepoFragment) {
+  const subset: Record<string, unknown> = {}
+
+  for (const [k, v] of Object.entries(obj)) subset[k] = applyHandler(k as RepoKey, v)
 
   return subset as RepoFragment
 }

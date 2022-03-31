@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { metrics } from '@/metrics'
+import { MetricsAliases as metrics } from '@/metrics'
 
 defineProps<{ data: { [key: string]: any } }>()
 </script>
@@ -8,10 +8,10 @@ defineProps<{ data: { [key: string]: any } }>()
 table
   thead
     tr.theader
-      th(v-for="m in metrics" :class="m.key").key {{m.alias}}
+      th(v-for="(value, key) in metrics" :class="key").key {{value}}
   tbody
     tr(v-for="item in data").entry
-      td(v-for="m in metrics") {{item[m.key]}}
+      td(v-for="(_, key) in metrics") {{item[key].value}}
 </template>
 
 <style scoped>
