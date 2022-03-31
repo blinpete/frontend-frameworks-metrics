@@ -1,6 +1,0 @@
-fragment repoFragment on Repository {
-  nameWithOwner
-  stargazerCount
-  forkCount
-  createdAt
-}

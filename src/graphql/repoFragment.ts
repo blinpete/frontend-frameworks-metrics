@@ -1,6 +1,4 @@
-import gql from 'graphql-tag'
-
-export default `#graphql
+export default /* GraphQL */ `
   fragment repoFragment on Repository {
     nameWithOwner
     stargazerCount
