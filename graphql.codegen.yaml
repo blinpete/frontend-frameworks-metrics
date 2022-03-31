@@ -1,0 +1,13 @@
+overwrite: true
+schema: "node_modules/@octokit/graphql-schema/schema.graphql"
+# documents: "src/repo.fragment.graphql"
+documents: "src/graphql/repoFragment.js"
+generates:
+  src/graphql/types.ts:
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+      # - "typescript-graphql-files-modules"
+  # ./graphql.schema.json:
+  #   plugins:
+  #     - "introspection"

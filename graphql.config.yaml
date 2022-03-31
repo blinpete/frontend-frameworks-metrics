@@ -1,2 +1,2 @@
-schema: "./githubSchema.graphql"
+schema: "node_modules/@octokit/graphql-schema/schema.graphql"
 documents: "src/**/*.{graphql,js,ts}"
