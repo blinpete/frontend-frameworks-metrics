@@ -10,5 +10,14 @@ export default /* GraphQL */ `
     owner {
       avatarUrl
     }
+    latestRelease {
+      tagName
+      publishedAt
+    }
+    # diskUsage
+    # isArchived
+    # pullRequests {
+    #   totalCount
+    # }
   }
 `
