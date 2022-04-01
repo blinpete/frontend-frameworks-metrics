@@ -15,6 +15,13 @@ main
 </template>
 
 <style>
+@import '@primer/octicons/build/build.css';
+
+a:any-link {
+  color: inherit;
+  text-decoration: none;
+}
+
 :root {
   --gh-white: hsl(204deg 33% 97%);
   --gh-black: hsl(210deg 12% 16%);

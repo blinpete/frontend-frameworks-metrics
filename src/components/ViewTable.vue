@@ -11,7 +11,9 @@ table
       th(v-for="(m, key) in metrics" :class="key").key {{m.alias}}
   tbody
     tr(v-for="item in data").entry
-      td(v-for="(_, key) in metrics") {{item[key].value}}
+      td(v-for="(_, key) in metrics")
+        div(v-if="item[key].html" v-html="item[key].value").logo
+        template(v-else) {{item[key].value}}
 </template>
 
 <style scoped>
@@ -39,5 +41,16 @@ tbody tr:hover {
 tbody td {
   background-color: inherit;
   padding: 8px;
+}
+
+.logo {
+  /* border: 4px solid #000; */
+  display: flex;
+  justify-content: center;
+}
+.logo img {
+  /* width: 50px; */
+  height: auto;
+  /* object-fit: cover; */
 }
 </style>

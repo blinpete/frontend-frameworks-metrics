@@ -6,6 +6,6 @@
     "paths": {
       "@/*": ["./src/*"]
     },
-    "types": ["node"]
+    "types": ["node", "primer__octicons"]
   }
 }
