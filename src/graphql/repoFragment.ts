@@ -33,6 +33,7 @@ export default /* GraphQL */ `
     # }
     primaryLanguage {
       name
+      color
     }
 
     # object(expression:"master") {
