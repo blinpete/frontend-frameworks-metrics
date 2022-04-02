@@ -16,6 +16,10 @@ const DIVISIONS = [
 ]
 
 export function formatTimeAgo(date) {
+  if (!date) return ''
+
+  date = new Date(date)
+
   let duration = (date - new Date()) / 1000
 
   for (let i = 0; i <= DIVISIONS.length; i++) {
