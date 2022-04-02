@@ -1,5 +1,5 @@
 [
-  { "owner": "vuejs", "repo": "vue" },
+  { "owner": "vuejs", "repo": "core" },
   { "owner": "facebook", "repo": "react" },
   { "owner": "angular", "repo": "angular" },
   { "owner": "sveltejs", "repo": "svelte" },
