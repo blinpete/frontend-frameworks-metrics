@@ -2,59 +2,87 @@ import { formatTimeAgo, kFormatNumber, spaceFormatNumber } from './utils'
 import type { RepoFragmentFragment as RepoFragment } from './graphql'
 import octicons from '@primer/octicons'
 
-type RepoKey = Exclude<keyof RepoFragment, '__typename'>
-type Handler = (repo: RepoFragment) => { value?: string | number }
-type Metrics = { [K in RepoKey]: { alias: string; handler: Handler } }
+export type Metric = {
+  sortValue?: number
+  html?: boolean
+  value: string | number
+}
 
-export const metrics: Metrics = {
-  nameWithOwner: {
-    alias: 'framework',
-    handler: repo => ({
+export type ExtractorName = string
+type Extractor = {
+  name: ExtractorName
+  extract: (repo: RepoFragment) => Metric
+}
+
+export type FrameworkMetrics = { [name: ExtractorName]: Metric }
+
+export const metrics: Extractor[] = [
+  {
+    name: 'repo',
+    extract: repo => ({
       html: true,
       value: `
-        <a href="${repo.homepageUrl}">
-          <img src="${repo.owner.avatarUrl}" style="height: 30px"/>
-        </a>
         <a href="${repo.url}">
           ${octicons['mark-github'].toSVG({ width: 24 })}
         </a>
       `,
     }),
   },
-  stargazerCount: {
-    alias: 'stars',
-    handler: repo => ({ value: spaceFormatNumber(repo.stargazerCount) }),
+  {
+    name: 'framework',
+    extract: repo => ({
+      html: true,
+      value: `
+        <a href="${repo.homepageUrl}">
+          <img src="${repo.owner.avatarUrl}" style="height: 30px"/>
+          ${repo.name}
+        </a>
+      `,
+    }),
   },
-  forkCount: {
-    alias: 'forks',
-    handler: repo => ({ value: spaceFormatNumber(repo.forkCount) }),
+  {
+    name: 'stars',
+    extract: repo => ({ value: spaceFormatNumber(repo.stargazerCount) }),
   },
-  createdAt: {
-    alias: 'created',
-    handler: repo => ({ value: formatTimeAgo(new Date(repo.createdAt)) }),
+  {
+    name: 'forks',
+    extract: repo => ({ value: spaceFormatNumber(repo.forkCount) }),
   },
-  updatedAt: {
-    alias: 'updated',
-    handler: repo => ({ value: formatTimeAgo(new Date(repo.updatedAt)) }),
+  {
+    name: 'version',
+    extract: repo => ({
+      // value: repo.latestRelease?.tagName + ' = ' + formatTimeAgo(repo.latestRelease?.publishedAt),
+      value: repo.latestRelease?.tagName,
+    }),
   },
-}
-
-function applyHandler<K extends RepoKey>(name: K, repo: RepoFragment) {
-  return {
-    key: name,
-    originalValue: repo[name],
-    value: repo[name],
-    ...metrics[name].handler(repo),
-  }
-}
+  {
+    name: 'open issues',
+    extract: repo => ({ value: repo.issues.totalCount }),
+  },
+  {
+    name: 'open PRs',
+    extract: repo => ({ value: repo.pullRequests.totalCount }),
+  },
+  {
+    name: 'language',
+    extract: repo => ({ value: repo.primaryLanguage?.name }),
+  },
+  {
+    name: 'created',
+    extract: repo => ({ value: formatTimeAgo(repo.createdAt) }),
+  },
+  {
+    name: 'updated',
+    extract: repo => ({ value: formatTimeAgo(repo.updatedAt) }),
+  },
+]
 
 export function processData(obj: RepoFragment) {
   const subset: Record<string, unknown> = {}
 
-  for (const k in metrics) {
-    const kTyped = k as keyof Metrics
-    subset[k] = applyHandler(kTyped, obj)
+  for (const m of metrics) {
+    subset[m.name] = m.extract(obj)
   }
 
-  return subset as RepoFragment
+  return subset as FrameworkMetrics
 }

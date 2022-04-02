@@ -1,19 +1,20 @@
 <script lang="ts" setup>
 import { metrics } from '@/metrics'
+import type { FrameworkMetrics } from '@/metrics'
 
-defineProps<{ data: { [key: string]: any } }>()
+defineProps<{ data: FrameworkMetrics[] }>()
 </script>
 
 <template lang="pug">
 table
   thead
     tr.theader
-      th(v-for="(m, key) in metrics" :class="key").key {{m.alias}}
+      th(v-for="m in metrics" :class="m.name").key {{m.name}}
   tbody
-    tr(v-for="item in data").entry
-      td(v-for="(_, key) in metrics")
-        div(v-if="item[key].html" v-html="item[key].value").logo
-        template(v-else) {{item[key].value}}
+    tr(v-for="repo in data").entry
+      td(v-for="m in metrics")
+        div(v-if="repo[m.name].html" v-html="repo[m.name].value").logo
+        template(v-else) {{repo[m.name].value}}
 </template>
 
 <style scoped>
