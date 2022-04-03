@@ -24,6 +24,13 @@ export default /* GraphQL */ `
       totalCount
     }
 
+    # collaborators {
+    #   totalCount
+    # }
+
+    # description
+    # descriptionHTML
+
     # openGraphImageUrl # using owner.avatarUrl instead
 
     # languages(first: 5) {
@@ -36,15 +43,17 @@ export default /* GraphQL */ `
       color
     }
 
-    # object(expression:"master") {
-    #   ... on Commit {
-    #     history {
-    #       totalCount
-    #     }
-    #   }
-    # }
+    commits: object(expression: "HEAD") {
+      ... on Commit {
+        history {
+          totalCount
+        }
+      }
+    }
 
-    # diskUsage
+    # ----------------- sizing
+    diskUsage
+
     # isArchived
     # pullRequests {
     #   totalCount
