@@ -1,4 +1,4 @@
-import { formatTimeAgo, kFormatNumber, spaceFormatNumber } from './utils'
+import { formatTimeAgo, kFormatNumber, spaceFormatNumber, capitalize } from './utils'
 import type { RepoFragmentFragment as RepoFragment } from './graphql'
 import octicons from '@primer/octicons'
 
@@ -11,6 +11,7 @@ export type Metric = {
 export type ExtractorName = string
 type Extractor = {
   name: ExtractorName
+  html?: string
   extract: (repo: RepoFragment) => Metric
 }
 
@@ -23,7 +24,7 @@ export const metrics: Extractor[] = [
       html: true,
       value: `
         <a href="${repo.url}">
-          ${octicons['mark-github'].toSVG({ width: 24 })}
+          ${octicons['mark-github'].toSVG({ width: 18 })}
         </a>
       `,
     }),
@@ -34,19 +35,31 @@ export const metrics: Extractor[] = [
       html: true,
       value: `
         <a href="${repo.homepageUrl}">
-          <img src="${repo.owner.avatarUrl}" style="height: 30px"/>
-          ${repo.name}
+          <img src="${repo.owner.avatarUrl}" style="height: 25px"/>
+          <span>${capitalize(repo.name)}</span>
         </a>
       `,
     }),
   },
   {
     name: 'stars',
+    html: `<span>${octicons.star.toSVG()} stars</span>`,
     extract: repo => ({ value: spaceFormatNumber(repo.stargazerCount) }),
   },
   {
     name: 'forks',
+    html: `<span>${octicons['repo-forked'].toSVG()} forks</span>`,
     extract: repo => ({ value: spaceFormatNumber(repo.forkCount) }),
+  },
+  {
+    name: 'open issues',
+    html: `<span>${octicons['issue-opened'].toSVG()} issues</span>`,
+    extract: repo => ({ value: repo.issues.totalCount }),
+  },
+  {
+    name: 'open PRs',
+    html: `<span>${octicons['git-pull-request'].toSVG()} open PRs</span>`,
+    extract: repo => ({ value: repo.pullRequests.totalCount }),
   },
   {
     name: 'version',
@@ -56,16 +69,16 @@ export const metrics: Extractor[] = [
     }),
   },
   {
-    name: 'open issues',
-    extract: repo => ({ value: repo.issues.totalCount }),
-  },
-  {
-    name: 'open PRs',
-    extract: repo => ({ value: repo.pullRequests.totalCount }),
-  },
-  {
     name: 'language',
-    extract: repo => ({ value: repo.primaryLanguage?.name }),
+    extract: repo => {
+      if (!repo.primaryLanguage?.name) return { value: null }
+      return {
+        html: true,
+        value: `<span style="color: ${repo.primaryLanguage.color}">${octicons[
+          'dot-fill'
+        ].toSVG()}</span>${repo.primaryLanguage?.name}`,
+      }
+    },
   },
   {
     name: 'created',
