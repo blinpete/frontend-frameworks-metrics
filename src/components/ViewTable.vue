@@ -9,13 +9,40 @@ defineProps<{ data: FrameworkMetrics[] }>()
 table
   thead
     tr.theader
-      th(v-for="m in metrics" :class="m.name").key {{m.name}}
+      th(v-for="m in metrics" :class="m.name").key
+        span(v-if="m.html" v-html="m.html")
+        span(v-else) {{m.name}}
   tbody
     tr(v-for="repo in data").entry
-      td(v-for="m in metrics")
-        div(v-if="repo[m.name].html" v-html="repo[m.name].value").logo
+      td(v-for="m in metrics" :class="m.name")
+        div(v-if="repo[m.name].html" v-html="repo[m.name].value").cell-wrapper
         template(v-else) {{repo[m.name].value}}
 </template>
+
+<style>
+.cell-wrapper {
+  display: flex;
+  /* justify-content: center; */
+}
+
+.cell-wrapper a {
+  display: flex;
+  align-items: center;
+}
+
+.cell-wrapper img + span {
+  margin-left: 5px;
+}
+
+/* Metric-specific styles */
+.repo .cell-wrapper {
+  justify-content: center;
+}
+
+.framework span {
+  font-weight: bold;
+}
+</style>
 
 <style scoped>
 table {
@@ -42,16 +69,5 @@ tbody tr:hover {
 tbody td {
   background-color: inherit;
   padding: 8px;
-}
-
-.logo {
-  /* border: 4px solid #000; */
-  display: flex;
-  justify-content: center;
-}
-.logo img {
-  /* width: 50px; */
-  height: auto;
-  /* object-fit: cover; */
 }
 </style>
