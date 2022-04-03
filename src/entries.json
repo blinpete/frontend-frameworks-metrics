@@ -3,5 +3,8 @@
   { "owner": "facebook", "repo": "react" },
   { "owner": "angular", "repo": "angular" },
   { "owner": "sveltejs", "repo": "svelte" },
-  { "owner": "marko-js", "repo": "marko" }
+  { "owner": "marko-js", "repo": "marko" },
+  { "owner": "lit", "repo": "lit" },
+  { "owner": "alpinejs", "repo": "alpine" },
+  { "owner": "solidjs", "repo": "solid" }
 ]
