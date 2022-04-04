@@ -9,9 +9,10 @@ defineProps<{ data: FrameworkMetrics[] }>()
 table
   thead
     tr.theader
-      th(v-for="m in metrics" :class="m.name").key
-        span(v-if="m.html" v-html="m.html")
-        span(v-else) {{m.name}}
+      th(v-for="m in metrics" :class="m.name")
+        div(v-if="m.icon" v-html="m.icon")
+        div.name {{m.name}}
+        div(v-if="m.shortDesc").info {{m.shortDesc}}
   tbody
     tr(v-for="repo in data").entry
       td(v-for="m in metrics" :class="m.name")
@@ -42,6 +43,12 @@ table
 .framework span {
   font-weight: bold;
 }
+
+.framework img {
+  border-radius: 30%;
+  /* box-shadow: -1px 1px 2px 0px rgb(175, 175, 175);
+  box-shadow: -1px 1px 2px 1px rgb(212, 212, 212); */
+}
 </style>
 
 <style scoped>
@@ -56,6 +63,17 @@ thead {
 
 th {
   padding: 10px 12px;
+  vertical-align: bottom;
+}
+th .title {
+  display: flex;
+  justify-content: center;
+}
+
+th .info {
+  font-weight: normal;
+  font-size: 0.65em;
+  opacity: 0.6;
 }
 
 tbody tr {
