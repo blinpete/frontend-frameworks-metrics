@@ -15,7 +15,7 @@ const DIVISIONS = [
   { amount: Number.POSITIVE_INFINITY, name: 'years' },
 ]
 
-export function formatTimeAgo(date) {
+function __formatTimeAgo(date) {
   if (!date) return ''
 
   date = new Date(date)
@@ -29,4 +29,14 @@ export function formatTimeAgo(date) {
     }
     duration /= division.amount
   }
+}
+
+export function formatTimeAgo(date, keepAgoWord = false) {
+  const output = __formatTimeAgo(date)
+  return keepAgoWord ? output : output.replace('ago', '')
+}
+
+// ---------- year
+export function getYear(date) {
+  return new Date(date).getFullYear()
 }

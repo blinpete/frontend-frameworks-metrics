@@ -1,4 +1,4 @@
-export { formatTimeAgo } from './date'
+export { formatTimeAgo, getYear } from './date'
 export { kFormatNumber, spaceFormatNumber } from './number'
 
 export function capitalize(str) {
