@@ -1,17 +1,19 @@
-import { formatTimeAgo, kFormatNumber, spaceFormatNumber, capitalize } from './utils'
+import { formatTimeAgo, getYear, kFormatNumber, spaceFormatNumber, capitalize } from './utils'
 import type { RepoFragmentFragment as RepoFragment } from './graphql'
 import octicons from '@primer/octicons'
 
 export type Metric = {
   sortValue?: number
   html?: boolean
-  value: string | number
+  value: string | number | undefined
 }
 
 export type ExtractorName = string
 type Extractor = {
-  name: ExtractorName
-  html?: string
+  name: ExtractorName // title
+  icon?: string // octicon to show in the title
+  shortDesc?: string
+  fullDesc?: string // tooltip
   extract: (repo: RepoFragment) => Metric
 }
 
@@ -20,6 +22,7 @@ export type FrameworkMetrics = { [name: ExtractorName]: Metric }
 export const metrics: Extractor[] = [
   {
     name: 'repo',
+    shortDesc: 'link',
     extract: repo => ({
       html: true,
       value: `
@@ -31,11 +34,12 @@ export const metrics: Extractor[] = [
   },
   {
     name: 'framework',
+    shortDesc: 'logo name link',
     extract: repo => ({
       html: true,
       value: `
         <a href="${repo.homepageUrl}">
-          <img src="${repo.owner.avatarUrl}" style="height: 25px"/>
+          <img src="${repo.owner.avatarUrl}" style="height: 24px"/>
           <span>${capitalize(repo.name)}</span>
         </a>
       `,
@@ -43,26 +47,37 @@ export const metrics: Extractor[] = [
   },
   {
     name: 'stars',
-    html: `<span>${octicons.star.toSVG()} stars</span>`,
+    shortDesc: 'count',
+    icon: octicons.star.toSVG(),
     extract: repo => ({ value: spaceFormatNumber(repo.stargazerCount) }),
   },
   {
     name: 'forks',
-    html: `<span>${octicons['repo-forked'].toSVG()} forks</span>`,
+    shortDesc: 'count',
+    icon: octicons['repo-forked'].toSVG(),
     extract: repo => ({ value: spaceFormatNumber(repo.forkCount) }),
   },
   {
-    name: 'open issues',
-    html: `<span>${octicons['issue-opened'].toSVG()} issues</span>`,
+    name: 'issues',
+    shortDesc: 'open',
+    icon: octicons['issue-opened'].toSVG(),
     extract: repo => ({ value: repo.issues.totalCount }),
   },
   {
-    name: 'open PRs',
-    html: `<span>${octicons['git-pull-request'].toSVG()} open PRs</span>`,
+    name: 'PRs',
+    shortDesc: 'open',
+    icon: octicons['git-pull-request'].toSVG(),
     extract: repo => ({ value: repo.pullRequests.totalCount }),
   },
   {
+    name: 'commits',
+    shortDesc: 'main branch',
+    icon: octicons['git-commit'].toSVG(),
+    extract: repo => ({ value: repo.commits?.history?.totalCount }),
+  },
+  {
     name: 'version',
+    shortDesc: 'latest',
     extract: repo => ({
       // value: repo.latestRelease?.tagName + ' = ' + formatTimeAgo(repo.latestRelease?.publishedAt),
       value: repo.latestRelease?.tagName,
@@ -70,6 +85,7 @@ export const metrics: Extractor[] = [
   },
   {
     name: 'language',
+    shortDesc: 'primary',
     extract: repo => {
       if (!repo.primaryLanguage?.name) return { value: null }
       return {
@@ -82,10 +98,12 @@ export const metrics: Extractor[] = [
   },
   {
     name: 'created',
+    shortDesc: 'time ago',
     extract: repo => ({ value: formatTimeAgo(repo.createdAt) }),
   },
   {
     name: 'updated',
+    shortDesc: 'time ago',
     extract: repo => ({ value: formatTimeAgo(repo.updatedAt) }),
   },
 ]
