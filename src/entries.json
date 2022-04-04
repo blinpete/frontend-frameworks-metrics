@@ -1,10 +1,15 @@
 [
+  { "owner": "vuejs", "repo": "vue" },
   { "owner": "vuejs", "repo": "core" },
   { "owner": "facebook", "repo": "react" },
   { "owner": "angular", "repo": "angular" },
   { "owner": "sveltejs", "repo": "svelte" },
   { "owner": "marko-js", "repo": "marko" },
   { "owner": "lit", "repo": "lit" },
+  { "owner": "ionic-team", "repo": "stencil" },
   { "owner": "alpinejs", "repo": "alpine" },
-  { "owner": "solidjs", "repo": "solid" }
+  { "owner": "solidjs", "repo": "solid" },
+  { "owner": "emberjs", "repo": "ember.js" },
+  { "owner": "meteor", "repo": "meteor" },
+  { "owner": "elm", "repo": "core" }
 ]
