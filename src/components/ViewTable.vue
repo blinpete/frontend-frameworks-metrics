@@ -10,7 +10,7 @@ table
   thead
     tr.theader
       th(v-for="m in metrics" :class="m.name")
-        div(v-if="m.icon" v-html="m.icon")
+        //- div(v-if="m.icon" v-html="m.icon")
         div.name {{m.name}}
         div(v-if="m.shortDesc").info {{m.shortDesc}}
   tbody
