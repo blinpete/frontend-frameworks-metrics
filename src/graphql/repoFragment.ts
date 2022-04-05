@@ -33,14 +33,15 @@ export default /* GraphQL */ `
 
     # openGraphImageUrl # using owner.avatarUrl instead
 
-    # languages(first: 5) {
-    #   nodes {
-    #     name
-    #   }
-    # }
-    primaryLanguage {
-      name
-      color
+    languages(first: 3, orderBy: { field: SIZE, direction: DESC }) {
+      edges {
+        size
+        node {
+          name
+          color
+        }
+      }
+      totalSize
     }
 
     commits: object(expression: "HEAD") {
