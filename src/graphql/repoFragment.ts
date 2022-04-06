@@ -1,5 +1,6 @@
 export default /* GraphQL */ `
   fragment repoFragment on Repository {
+    nameWithOwner
     name
     homepageUrl
     stargazerCount
