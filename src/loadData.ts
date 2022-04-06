@@ -1,11 +1,10 @@
 import entries from './entries.json'
 
 import token from '../secret-token.json'
-import { repoFragment } from './graphql'
+import { repoFragment, type RepoFragmentFragment } from './graphql'
 
 // GitHub API Client
 import { graphql } from '@octokit/graphql'
-import type { Repository, Scalars } from '@octokit/graphql-schema'
 
 export default async function loadData() {
   console.log('[loadData] entries:', entries)
@@ -43,7 +42,7 @@ export default async function loadData() {
 
   console.log('query:', reposQuery)
 
-  const response = await ghAPI<Record<string, Repository>>({
+  const response = await ghAPI<Record<string, RepoFragmentFragment>>({
     query: reposQuery,
     // query: queryCheckLimit,
   })
