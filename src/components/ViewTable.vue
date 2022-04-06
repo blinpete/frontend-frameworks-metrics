@@ -42,12 +42,13 @@ table
 
 .framework span {
   font-weight: bold;
+  opacity: 0.9;
 }
 
 .framework img {
   border-radius: 30%;
-  /* box-shadow: -1px 1px 2px 0px rgb(175, 175, 175);
-  box-shadow: -1px 1px 2px 1px rgb(212, 212, 212); */
+  /* box-shadow: -1px 1px 2px 0px rgb(175, 175, 175); */
+  /* box-shadow: -1px 1px 2px 1px rgb(212, 212, 212); */
 }
 
 /* .framework .version {
@@ -66,7 +67,7 @@ td.version .cell-wrapper {
   text-align: center;
 }
 td.version .publishedAt {
-  opacity: 0.55;
+  opacity: 0.5;
 }
 
 td.languages .cell-wrapper {
@@ -75,7 +76,7 @@ td.languages .cell-wrapper {
   flex-direction: column;
 }
 td.languages .percent {
-  opacity: 0.55;
+  opacity: 0.5;
 }
 </style>
 
@@ -102,6 +103,10 @@ th .info {
   font-weight: normal;
   font-size: 0.65em;
   opacity: 0.6;
+}
+
+tbody {
+  color: hsl(0, 0%, 30%);
 }
 
 tbody tr {
