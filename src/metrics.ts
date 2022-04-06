@@ -42,7 +42,8 @@ export const metrics: Extractor[] = [
           <img src="${repo.owner.avatarUrl}" style="height: 24px"/>
           <span>${capitalize(repo.name)}</span>
         </a>
-      `,
+        `,
+      // <span class="version">${repo.latestRelease?.tagName || ''}</span>
     }),
   },
   {
@@ -78,10 +79,15 @@ export const metrics: Extractor[] = [
   {
     name: 'version',
     shortDesc: 'latest',
-    extract: repo => ({
-      // value: repo.latestRelease?.tagName + ' = ' + formatTimeAgo(repo.latestRelease?.publishedAt),
-      value: repo.latestRelease?.tagName,
-    }),
+    extract: repo => {
+      return {
+        html: true,
+        value: `
+          <div class="tagName">${repo.latestRelease?.tagName || ''}</div>
+          <div class="publishedAt">${formatTimeAgo(repo.latestRelease?.publishedAt)}</div>
+        `,
+      }
+    },
   },
   {
     name: 'languages',

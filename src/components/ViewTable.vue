@@ -50,6 +50,25 @@ table
   box-shadow: -1px 1px 2px 1px rgb(212, 212, 212); */
 }
 
+/* .framework .version {
+  opacity: 0.4;
+  font-weight: normal;
+  font-size: 0.75em;
+  margin-left: 4px;
+  position: relative;
+  bottom: -1px;
+} */
+
+td.version .cell-wrapper {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.8em;
+  text-align: center;
+}
+td.version .publishedAt {
+  opacity: 0.55;
+}
+
 td.languages .cell-wrapper {
   font-size: 0.8em;
   display: flex;
