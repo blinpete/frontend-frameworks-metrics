@@ -49,6 +49,15 @@ table
   /* box-shadow: -1px 1px 2px 0px rgb(175, 175, 175);
   box-shadow: -1px 1px 2px 1px rgb(212, 212, 212); */
 }
+
+td.languages .cell-wrapper {
+  font-size: 0.8em;
+  display: flex;
+  flex-direction: column;
+}
+td.languages .percent {
+  opacity: 0.55;
+}
 </style>
 
 <style scoped>

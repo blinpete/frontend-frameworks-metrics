@@ -1,5 +1,5 @@
 import { formatTimeAgo, getYear, kFormatNumber, spaceFormatNumber, capitalize } from './utils'
-import type { RepoFragmentFragment as RepoFragment } from './graphql'
+import type { RepoFragmentFragment as RepoFragment, LanguageEdge } from './graphql'
 import octicons from '@primer/octicons'
 
 export type Metric = {
@@ -61,7 +61,7 @@ export const metrics: Extractor[] = [
     name: 'issues',
     shortDesc: 'open',
     icon: octicons['issue-opened'].toSVG(),
-    extract: repo => ({ value: repo.issues.totalCount }),
+    extract: repo => ({ value: spaceFormatNumber(repo.issues.totalCount) }),
   },
   {
     name: 'PRs',
@@ -73,7 +73,7 @@ export const metrics: Extractor[] = [
     name: 'commits',
     shortDesc: 'main branch',
     icon: octicons['git-commit'].toSVG(),
-    extract: repo => ({ value: repo.commits?.history?.totalCount }),
+    extract: repo => ({ value: spaceFormatNumber(repo.commits?.history?.totalCount) }),
   },
   {
     name: 'version',
@@ -84,15 +84,31 @@ export const metrics: Extractor[] = [
     }),
   },
   {
-    name: 'language',
-    shortDesc: 'primary',
+    name: 'languages',
+    shortDesc: 'dominants',
     extract: repo => {
-      if (!repo.primaryLanguage?.name) return { value: null }
+      const fallback = { value: null }
+
+      const { edges, totalSize } = repo?.languages || {}
+      if (!edges || !totalSize || edges.some(e => e == null)) return fallback
+
+      const primary = edges[0]
+      if (!primary) return fallback
+
+      // heuristic to pick major languages
+      const isDominant = (le: LanguageEdge) => le.size / primary.size > 0.7
+
+      const h = ({ size, node: { color, name } }: LanguageEdge) => `
+      <div>
+        <span style="color: ${color}">${octicons['dot-fill'].toSVG()}</span>
+        <span>${name}</span>
+        <span class="percent muted">${Math.round((size * 100) / totalSize)}%</span>
+      </div>
+      `
+
       return {
         html: true,
-        value: `<span style="color: ${repo.primaryLanguage.color}">${octicons[
-          'dot-fill'
-        ].toSVG()}</span>${repo.primaryLanguage?.name}`,
+        value: (edges as LanguageEdge[]).filter(isDominant).map(h).join(''),
       }
     },
   },
