@@ -23,7 +23,6 @@ table
 <style>
 .cell-wrapper {
   display: flex;
-  /* justify-content: center; */
 }
 
 .cell-wrapper a {
@@ -43,6 +42,10 @@ table
 .framework span {
   font-weight: bold;
   opacity: 0.9;
+}
+.framework:hover span {
+  text-decoration: underline;
+  text-decoration-thickness: from-font;
 }
 
 .framework img {
@@ -78,6 +81,11 @@ td.languages .cell-wrapper {
 td.languages .percent {
   opacity: 0.5;
 }
+
+td.created,
+td.updated {
+  text-align: center;
+}
 </style>
 
 <style scoped>
@@ -86,27 +94,37 @@ table {
 }
 
 thead {
-  background-color: var(--gh-black);
   color: #fff;
+  opacity: 0.97;
 }
 
-th {
+thead th {
   padding: 10px 12px;
   vertical-align: bottom;
+
+  background-color: var(--gh-black);
 }
 th .title {
   display: flex;
   justify-content: center;
 }
-
 th .info {
   font-weight: normal;
   font-size: 0.65em;
   opacity: 0.6;
 }
+th:not(:last-of-type) {
+  border-right: 2px hsl(0, 5%, 89%) solid;
+  /* border-right: 1px hsl(210, 9%, 29%) solid; */
+}
 
 tbody {
   color: hsl(0, 0%, 30%);
+}
+
+tbody td:not(:last-child) {
+  border-right: 2px hsl(0, 0%, 97%) solid;
+  /* border-radius: 10px; */
 }
 
 tbody tr {
@@ -120,5 +138,6 @@ tbody tr:hover {
 tbody td {
   background-color: inherit;
   padding: 8px;
+  border-bottom: 1px hsl(0, 0%, 96%) solid;
 }
 </style>
