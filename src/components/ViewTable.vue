@@ -91,6 +91,8 @@ td.updated {
 <style scoped>
 table {
   width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
 }
 
 thead {
@@ -102,7 +104,11 @@ thead th {
   padding: 10px 12px;
   vertical-align: bottom;
 
+  position: sticky;
+  top: 0;
+
   background-color: var(--gh-black);
+  z-index: 1;
 }
 th .title {
   display: flex;
