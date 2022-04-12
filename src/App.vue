@@ -16,6 +16,7 @@ main
 
 <style>
 @import '@primer/octicons/build/build.css';
+@import '@csstools/normalize.css';
 
 a:any-link {
   color: inherit;

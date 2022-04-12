@@ -1,3 +1,4 @@
 map: absolute
-plugins: 
+plugins:
+  postcss-normalize: {}
   postcss-nesting: {}
