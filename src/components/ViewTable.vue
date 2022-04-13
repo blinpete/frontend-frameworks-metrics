@@ -42,7 +42,7 @@ table
   }
   &:hover span {
     text-decoration: underline;
-    text-decoration-thickness: from-font;
+    text-decoration-thickness: 2px;
   }
 
   & img {
@@ -60,6 +60,13 @@ table
   } */
 }
 
+tbody {
+  & td:not(:where(.framework, .repo, .version, .languages)) {
+    font-size: 0.92em;
+    font-weight: 500;
+  }
+}
+
 td.version {
   & .cell-wrapper {
     display: flex;
@@ -71,6 +78,12 @@ td.version {
   & .publishedAt {
     opacity: 0.55;
   }
+}
+
+td.version,
+td.languages {
+  padding-top: 7px;
+  padding-bottom: 6px;
 }
 
 td.languages {
