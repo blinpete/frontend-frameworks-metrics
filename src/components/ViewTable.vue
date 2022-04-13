@@ -108,7 +108,7 @@ table {
   width: min(100%, 1300px);
   border-collapse: separate;
   border-spacing: 0;
-  margin: 0 auto;
+  margin: 0 auto 40px;
 }
 
 thead {
@@ -138,8 +138,8 @@ th {
   }
 
   &:not(:last-of-type) {
-    border-right: 2px hsl(0, 5%, 89%) solid;
-    /* border-right: 1px hsl(210, 9%, 29%) solid; */
+    /* border-right: 2px hsl(0, 5%, 89%) solid; */
+    border-right: 2px hsl(210, 9%, 29%) solid;
   }
 }
 
@@ -160,7 +160,8 @@ tbody {
 
   & td:not(:last-child) {
     border-right: 2px hsl(0, 0%, 97%) solid;
-    /* border-radius: 10px; */
+    /* border-right: 2px var(--gh-white) solid; */
+    /* border-right: 5px transparent solid; */
   }
 
   & tr {
@@ -168,13 +169,15 @@ tbody {
   }
 
   & tr:hover {
-    background-color: hsl(0, 0%, 95%);
+    background-color: hsl(0, 0%, 96%);
+    /* background-color: var(--gh-white); */
   }
 
   & td {
     background-color: inherit;
     padding: 8px;
     border-bottom: 1px hsl(0, 0%, 96%) solid;
+    /* border-bottom: 2px var(--gh-white) solid; */
   }
 }
 </style>
