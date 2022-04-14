@@ -2,3 +2,4 @@ map: absolute
 plugins:
   postcss-normalize: {}
   postcss-nesting: {}
+  autoprefixer: {}
