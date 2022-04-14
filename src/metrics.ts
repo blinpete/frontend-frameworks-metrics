@@ -26,7 +26,7 @@ export const metrics: Extractor[] = [
     extract: repo => ({
       html: true,
       value: `
-        <a href="${repo.url}">
+        <a href="${repo.url}" target="_blank">
           ${octicons['mark-github'].toSVG({ width: 18 })}
         </a>
       `,
@@ -38,7 +38,7 @@ export const metrics: Extractor[] = [
     extract: repo => ({
       html: true,
       value: `
-        <a href="${repo.homepageUrl}">
+        <a href="${repo.homepageUrl}" target="_blank">
           <img src="${repo.owner.avatarUrl}" style="height: 24px"/>
           <span>${capitalize(repo.name)}</span>
         </a>
