@@ -13,13 +13,16 @@ console.log('[App] data:', data)
 <template lang="pug">
 header
   h1 Frontend Frameworks
+  a.this-repo-link(href="https://github.com/blinpete/frontend-frameworks-stats")
+    span(v-html="octicons['mark-github'].toSVG({width: 30})")
+    span(v-html="octicons['mark-github'].toSVG({width: 30})").inset
 main
   ViewTable(v-if="data" :data="data")
 footer
-  div.sign Built with #[span(v-html="heartIcon").heart] on top of GitHub API
+  div.sign Built with #[span(v-html="heartIcon").heart] on top of #[a.api(href="https://docs.github.com/en/graphql") GitHub API]
 </template>
 
-<style>
+<style lang="postcss">
 @import '@primer/octicons/build/build.css';
 @import '@csstools/normalize.css';
 
@@ -31,6 +34,16 @@ a:any-link {
 :root {
   --gh-white: hsl(204deg 33% 97%);
   --gh-black: hsl(210deg 12% 16%);
+
+  --white-darker-icon: hsl(200deg 8% 83%);
+
+  /* --white-darker-text: hsl(200deg 8% 80%); */
+  --white-darker-text: hsl(200deg 14% 81%);
+
+  /* --white--darker-text-inset: hsl(204deg 7% 80%); */
+  /* --white--darker-text-inset: hsl(204deg 14% 66%); */
+  /* --white--darker-text-inset: hsl(204deg 11% 73%); */
+  --white--darker-text-inset: hsl(204deg 17% 76%);
 }
 
 html,
@@ -51,7 +64,7 @@ body {
 header h1 {
   text-align: center;
   font-weight: 900;
-  font-family: Nunito, Spectral, Helvetica, sans-serif;
+  font-family: Nunito, Helvetica, sans-serif;
   font-size: 60px;
 
   position: relative;
@@ -71,8 +84,37 @@ header h1 {
   /* color: hsl(204deg 7% 76%); */
 }
 
+a.this-repo-link {
+  color: hsl(207deg 7% 79%);
+
+  & span {
+    position: absolute;
+
+    right: 30px;
+    top: 30px;
+
+    transition: color 150ms;
+  }
+
+  & span:last-child {
+    color: rgba(255, 255, 255, 0.5);
+    transform: translate(1px, 1px);
+  }
+
+  &:hover {
+    & span:first-child {
+      color: var(--gh-black);
+      color: hsl(210deg 8% 26%);
+    }
+
+    & span:last-child {
+      color: rgba(255, 255, 255, 0.05);
+    }
+  }
+}
+
 .sign .heart svg {
-  color: hsl(200deg 10% 81%);
+  color: var(--white-darker-icon);
   position: relative;
   top: 2px;
   transition: color 300ms;
@@ -84,21 +126,34 @@ header h1 {
   /* top: 1px; */
 }
 footer {
-  margin-top: 60px;
-
   text-align: center;
 
+  margin-top: 60px;
   padding: 30px;
+
+  /* plain text */
+  /* color: hsl(201deg 18% 75%); */
 
   /* inset text */
   color: transparent;
   background-clip: text;
   text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
-
-  /* background-color: hsl(204deg 7% 80%); */
-  background-color: hsl(204deg 14% 66%);
+  background-color: var(--white--darker-text-inset);
 
   font-family: Nunito, Helvetica, sans-serif;
   font-weight: 900;
+
+  & a.api {
+    position: relative;
+    color: var(--white-darker-text);
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+  }
+
+  & .links {
+    margin-bottom: 60px;
+    display: flex;
+    justify-content: space-around;
+  }
 }
 </style>
