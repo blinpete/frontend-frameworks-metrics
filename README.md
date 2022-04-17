@@ -1,7 +1,27 @@
-# Vue 3 + Vite
+# A living collection of frontend frameworks
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+A place where a frontdev can stay up-to-date with most popular frontend frameworks.
 
-## Recommended IDE Setup
 
-- [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar)
+It uses [GitHub GraphQL API](https://docs.github.com/en/graphql) to fetch the following metadata:
+- `logo`
+- `website`
+- `stars` count
+- `forks` count
+- `open issues` count
+- `open PRs` count
+- `commits` count (on default branch)
+- `latest release` label and time
+- `languages` dominants
+- `createdAt` time
+- `updatedAt` time
+
+
+
+# Contributing
+
+Pull requests are welcome. If you can't find your favourite framework in the list just add it [here](https://github.com/blinpete/frontend-frameworks-metrics/blob/main/src/entries.json) and create a pull request.
+
+If you encountered a bug or have a feature request please [open an issue](https://github.com/blinpete/frontend-frameworks-metrics/issues/new/choose).
+
+
