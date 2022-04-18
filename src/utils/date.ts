@@ -5,7 +5,11 @@ const formatter = new Intl.RelativeTimeFormat(undefined, {
   numeric: 'auto',
 })
 
-const DIVISIONS = [
+type Division = {
+  amount: number
+  name: Intl.RelativeTimeFormatUnit
+}
+const DIVISIONS: Division[] = [
   { amount: 60, name: 'seconds' },
   { amount: 60, name: 'minutes' },
   { amount: 24, name: 'hours' },
@@ -15,12 +19,12 @@ const DIVISIONS = [
   { amount: Number.POSITIVE_INFINITY, name: 'years' },
 ]
 
-function __formatTimeAgo(date) {
+function __formatTimeAgo(date: number | string) {
   if (!date) return ''
 
-  date = new Date(date)
+  date = new Date(date).valueOf()
 
-  let duration = (date - new Date()) / 1000
+  let duration = (date - new Date().valueOf()) / 1000
 
   for (let i = 0; i <= DIVISIONS.length; i++) {
     const division = DIVISIONS[i]
@@ -29,14 +33,16 @@ function __formatTimeAgo(date) {
     }
     duration /= division.amount
   }
+
+  return ''
 }
 
-export function formatTimeAgo(date, keepAgoWord = false) {
+export function formatTimeAgo(date: number | string, keepAgoWord = false) {
   const output = __formatTimeAgo(date)
   return keepAgoWord ? output : output.replace('ago', '')
 }
 
 // ---------- year
-export function getYear(date) {
+export function getYear(date: number | string) {
   return new Date(date).getFullYear()
 }
