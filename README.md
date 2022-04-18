@@ -1,4 +1,4 @@
-# A living collection of frontend frameworks
+# A Living Collection of Frontend Frameworks
 
 A place where frontdevs can keep up to date with their marvelous frameworks.
 
