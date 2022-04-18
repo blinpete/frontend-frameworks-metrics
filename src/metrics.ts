@@ -74,7 +74,13 @@ export const metrics: Extractor[] = [
     name: 'commits',
     shortDesc: 'main branch',
     icon: octicons['git-commit'].toSVG(),
-    extract: repo => ({ value: spaceFormatNumber(repo.commits?.history?.totalCount) }),
+    extract: repo => {
+      if (!(repo.commits && 'history' in repo.commits)) return { value: undefined }
+
+      return {
+        value: spaceFormatNumber(repo.commits.history.totalCount),
+      }
+    },
   },
   {
     name: 'version',
@@ -93,7 +99,7 @@ export const metrics: Extractor[] = [
     name: 'languages',
     shortDesc: 'dominants',
     extract: repo => {
-      const fallback = { value: null }
+      const fallback = { value: undefined }
 
       const { edges, totalSize } = repo?.languages || {}
       if (!edges || !totalSize || edges.some(e => e == null)) return fallback
