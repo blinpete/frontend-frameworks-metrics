@@ -1,6 +1,6 @@
 # A living collection of frontend frameworks
 
-A place where a frontdev can stay up-to-date with most popular frontend frameworks.
+A place where frontdevs can keep up to date with their marvelous frameworks.
 
 
 It uses [GitHub GraphQL API](https://docs.github.com/en/graphql) to fetch the following metadata:
@@ -20,7 +20,7 @@ It uses [GitHub GraphQL API](https://docs.github.com/en/graphql) to fetch the fo
 
 # Contributing
 
-Pull requests are welcome. If you can't find your favourite framework in the list just add it [here](https://github.com/blinpete/frontend-frameworks-metrics/blob/main/src/entries.json) and create a pull request.
+Pull requests are welcome. If you can't find your favourite framework in the list just edit [this file](https://github.com/blinpete/frontend-frameworks-metrics/blob/main/src/entries.json) and create a pull request.
 
 If you encountered a bug or have a feature request please [open an issue](https://github.com/blinpete/frontend-frameworks-metrics/issues/new/choose).
 
