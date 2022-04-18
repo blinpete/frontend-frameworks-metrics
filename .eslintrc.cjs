@@ -15,4 +15,5 @@ module.exports = {
   rules: {
     'vue/script-setup-uses-vars': 'error',
   },
+  ignorePatterns: ['src/graphql/types.ts'],
 }
