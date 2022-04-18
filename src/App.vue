@@ -7,7 +7,6 @@ import octicons from '@primer/octicons'
 
 const heartIcon = octicons['heart-fill'].toSVG()
 const data = ref(useData())
-console.log('[App] data:', data)
 </script>
 
 <template lang="pug">
