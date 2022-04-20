@@ -1,6 +1,5 @@
 import entries from './entries.json'
 
-import token from '../secret-token.json'
 import { repoFragment, type RepoFragmentFragment } from './graphql'
 
 // GitHub API Client
@@ -9,9 +8,15 @@ import { graphql } from '@octokit/graphql'
 export default async function loadData() {
   console.log('[loadData] entries:', entries)
 
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  const TOKEN = process.env.TOKEN || require('../secret-token.json')?.value
+  console.log('[loadData] TOKEN:', TOKEN)
+
+  if (!TOKEN) throw new Error('TOKEN not found. Check secrets.GITHUB_TOKEN or local json.')
+
   const ghAPI = graphql.defaults({
     headers: {
-      authorization: 'token ' + token.value,
+      authorization: 'token ' + TOKEN,
     },
   })
 
