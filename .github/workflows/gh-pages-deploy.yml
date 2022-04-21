@@ -19,9 +19,10 @@ jobs:
           node-version: '14'
       
       - run: npm ci
-      - run: npm run update:metrics
-        env:
-          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Fetch Metrics
+        run: |
+          echo TOKEN=${{ secrets.GITHUB_TOKEN }} >> .env
+          npm run update:metrics
       - run: npm run build
       
       - uses: peaceiris/actions-gh-pages@v3
