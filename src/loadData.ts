@@ -5,14 +5,14 @@ import { repoFragment, type RepoFragmentFragment } from './graphql'
 // GitHub API Client
 import { graphql } from '@octokit/graphql'
 
+import dotenv from 'dotenv'
+dotenv.config()
+
 export default async function loadData() {
   console.log('[loadData] entries:', entries)
 
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const TOKEN = process.env.TOKEN || require('../secret-token.json')?.value
-  console.log('[loadData] TOKEN:', TOKEN)
-
-  if (!TOKEN) throw new Error('TOKEN not found. Check secrets.GITHUB_TOKEN or local json.')
+  const TOKEN = process.env.TOKEN
+  if (!TOKEN) throw new Error('TOKEN not found. Check secrets.GITHUB_TOKEN or local `.env`.')
 
   const ghAPI = graphql.defaults({
     headers: {

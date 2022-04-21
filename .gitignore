@@ -2,7 +2,8 @@
 /src/data.json
 /src/reposData.json
 
-secret-token.json
+# Private local environment
+.env
 
 # Logs
 logs
