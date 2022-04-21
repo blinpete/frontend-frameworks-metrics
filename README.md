@@ -1,12 +1,10 @@
+# A Living Collection of Frontend Frameworks
 [![Deploy GitHub Pages workflow](https://github.com/blinpete/frontend-frameworks-metrics/actions/workflows/gh-pages-deploy.yml/badge.svg)](https://github.com/blinpete/frontend-frameworks-metrics/actions/workflows/gh-pages-deploy.yml)
 [![last commit on ph-pages branch](https://badgen.net/github/last-commit/blinpete/frontend-frameworks-metrics/gh-pages?label=last%20deploy&labelColor=272d33&color=3bc147)](https://github.com/blinpete/frontend-frameworks-metrics/deployments/activity_log?environment=github-pages)
 [![License](https://badgen.net/badge/license/MIT/blue)](https://github.com/blinpete/frontend-frameworks-metrics/blob/main/LICENSE)
 
 
-
-# A Living Collection of Frontend Frameworks
-
-A place where frontdevs can keep up to date with their marvelous frameworks. [See](https://blinpete.github.io/frontend-frameworks-metrics/).
+A place where frontdevs can keep up to date with their marvelous frameworks. [Take a look](https://blinpete.github.io/frontend-frameworks-metrics/).
 
 
 It uses [GitHub GraphQL API](https://docs.github.com/en/graphql) to fetch the following data:
