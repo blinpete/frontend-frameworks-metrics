@@ -1,9 +1,9 @@
 # A Living Collection of Frontend Frameworks
 
-A place where frontdevs can keep up to date with their marvelous frameworks.
+A place where frontdevs can keep up to date with their marvelous frameworks. [See](https://blinpete.github.io/frontend-frameworks-metrics/).
 
 
-It uses [GitHub GraphQL API](https://docs.github.com/en/graphql) to fetch the following metadata:
+It uses [GitHub GraphQL API](https://docs.github.com/en/graphql) to fetch the following data:
 - `logo`
 - `website`
 - `stars` count
@@ -16,6 +16,8 @@ It uses [GitHub GraphQL API](https://docs.github.com/en/graphql) to fetch the fo
 - `createdAt` time
 - `updatedAt` time
 
+
+GitHub workflow fetches the fresh data every night (at 00:00 UTC) and deploys the app to GitHub Pages.
 
 
 # Contributing
