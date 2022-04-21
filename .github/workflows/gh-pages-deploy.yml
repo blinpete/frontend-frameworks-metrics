@@ -19,7 +19,9 @@ jobs:
           node-version: '14'
       
       - run: npm ci
-      - run: TOKEN=${{ secrets.GITHUB_TOKEN }} npm run update:metrics
+      - run: npm run update:metrics
+        env:
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: npm run build
       
       - uses: peaceiris/actions-gh-pages@v3
