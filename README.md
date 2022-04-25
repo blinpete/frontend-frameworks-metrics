@@ -28,6 +28,6 @@ GitHub workflow fetches the fresh data every night (at 00:00 UTC) and deploys th
 
 Pull requests are welcome. If you can't find your favourite framework in the list just edit [this file](https://github.com/blinpete/frontend-frameworks-metrics/blob/main/src/entries.json) and create a pull request.
 
-If you encountered a bug or have a feature request please [open an issue](https://github.com/blinpete/frontend-frameworks-metrics/issues/new/choose).
+If you encounter a bug or have a feature request please [open an issue](https://github.com/blinpete/frontend-frameworks-metrics/issues/new/choose).
 
 
