@@ -107,13 +107,15 @@ header h1 {
 a.this-repo-link {
   color: hsl(207deg 7% 79%);
 
+  position: absolute;
+
+  right: 30px;
+  top: 30px;
+
   & span {
-    position: absolute;
-
-    right: 30px;
-    top: 30px;
-
     transition: color 150ms;
+    position: absolute;
+    right: 0;
   }
 
   & span:last-child {
@@ -174,6 +176,51 @@ footer {
     margin-bottom: 60px;
     display: flex;
     justify-content: space-around;
+  }
+}
+
+/* large screen */
+@media (min-height: 1079px) {
+  main {
+    margin: 200px auto;
+  }
+
+  header h1 {
+    margin-top: 70px;
+  }
+
+  a.this-repo-link {
+    transform: scale(1.5);
+  }
+
+  footer {
+    margin-bottom: 20px;
+  }
+}
+
+/* mobile screen */
+@media (max-width: 450px) {
+  header h1 {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 350px) {
+  footer {
+    font-size: 0.9rem;
+  }
+
+  a.this-repo-link {
+    left: calc(15px + 50%);
+    right: unset;
+  }
+
+  header h1 {
+    margin-top: 70px;
+  }
+
+  main {
+    margin-top: 200px;
   }
 }
 </style>
