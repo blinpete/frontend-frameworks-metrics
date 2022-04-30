@@ -60,6 +60,27 @@ body {
   font-family: Helvetica, sans-serif;
 }
 
+/* ----------- Floating table ----------- */
+header,
+footer {
+  position: fixed;
+
+  left: 0;
+  right: 0;
+
+  z-index: -1;
+}
+header {
+  top: 0;
+}
+footer {
+  bottom: 0;
+}
+main {
+  margin: 150px auto;
+}
+/* -------------------------------------- */
+
 header h1 {
   text-align: center;
   font-weight: 900;
