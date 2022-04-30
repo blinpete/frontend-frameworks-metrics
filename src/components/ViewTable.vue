@@ -93,6 +93,8 @@ td.languages {
     flex-direction: column;
   }
 
+  white-space: nowrap;
+
   & .percent {
     opacity: 0.55;
   }
