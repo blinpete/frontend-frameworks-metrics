@@ -8,16 +8,44 @@ export type Metric = {
   value: string | number | undefined
 }
 
-export type ExtractorName = string
-type Extractor = {
-  name: ExtractorName // title
+export const sortableMetrics = [
+  'stars',
+  'forks',
+  'issues',
+  'commits',
+  'PRs',
+  'created',
+  'updated',
+  // 'version',
+] as const
+
+type ExtractorNameSortable = typeof sortableMetrics[number]
+
+export type ExtractorName = 'repo' | 'framework' | 'version' | 'languages' | ExtractorNameSortable
+
+type RequireKeys<T, R extends keyof T> = T & { [K in R]-?: T[K] }
+
+type ExtractorBase = {
   icon?: string // octicon to show in the title
-  shortDesc?: string
+  shortDesc: string
   fullDesc?: string // tooltip
+}
+
+interface ExtractorSortable extends ExtractorBase {
+  name: ExtractorNameSortable
+  extract: (repo: RepoFragment) => RequireKeys<Metric, 'sortValue'>
+}
+
+interface ExtractorNonsortable extends ExtractorBase {
+  name: ExtractorName // title
   extract: (repo: RepoFragment) => Metric
 }
 
-export type FrameworkMetrics = { [name: ExtractorName]: Metric }
+// type Extractor = ExtractorSortable
+type Extractor = ExtractorNonsortable | ExtractorSortable
+// type Extractor = ['name'] extends ExtractorNameSortable ? ExtractorNonsortable : ExtractorSortable
+
+export type FrameworkMetrics = Record<ExtractorName, Metric>
 
 export const metrics: Extractor[] = [
   {
@@ -50,7 +78,10 @@ export const metrics: Extractor[] = [
     name: 'stars',
     shortDesc: 'count',
     icon: octicons.star.toSVG(),
-    extract: repo => ({ value: spaceFormatNumber(repo.stargazerCount) }),
+    extract: repo => ({
+      value: spaceFormatNumber(repo.stargazerCount),
+      sortValue: repo.stargazerCount,
+    }),
   },
   {
     name: 'forks',
