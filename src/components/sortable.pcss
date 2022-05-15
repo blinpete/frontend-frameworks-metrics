@@ -1,0 +1,50 @@
+th.sortable {
+  cursor: pointer;
+
+  --sortableColor: #ccc;
+
+  /* --activeColor: yellow; */
+  /* --activeColor: lightblue; */
+  
+  /* --activeColor: lightpink; */
+  /* --activeColor: hotpink; */
+  /* --activeColor: plum; */
+
+  --activeColor: lightcoral;
+  /* --activeColor: salmon; */
+
+  user-select: none;
+  
+  &:after, &:before {
+    content: '';
+
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 4px;
+
+    /* background-color: pink; */
+    /* background-color: lightblue; */
+    /* background-color: salmon; */
+  }
+  &:before {
+    top: 0
+  }
+  &:after {
+    bottom: 0;
+  }
+
+  &:hover{
+    &:not(.sorter):after, &.top:after, &.bottom:before {
+      background-color: var(--sortableColor);
+    }
+  }
+
+  &.bottom:after, &.top:before {
+    background-color: var(--activeColor);
+  }
+
+  /* &:not(.sorter):before {
+    background-color: var(--sortableColor);
+  } */
+}
