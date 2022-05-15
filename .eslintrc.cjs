@@ -14,6 +14,7 @@ module.exports = {
   },
   rules: {
     'vue/script-setup-uses-vars': 'error',
+    '@typescript-eslint/no-unused-vars': 0,
   },
   ignorePatterns: ['src/graphql/types.ts'],
 }
