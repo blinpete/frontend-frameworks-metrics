@@ -8,7 +8,7 @@ export type Metric = {
   value: string | number | undefined
 }
 
-export const sortableMetrics = [
+export const metricsSortable = [
   'stars',
   'forks',
   'issues',
@@ -19,9 +19,11 @@ export const sortableMetrics = [
   // 'version',
 ] as const
 
-type ExtractorNameSortable = typeof sortableMetrics[number]
+export const metricsNonSortable = ['repo', 'framework', 'version', 'languages'] as const
 
-export type ExtractorName = 'repo' | 'framework' | 'version' | 'languages' | ExtractorNameSortable
+type ExtractorNameSortable = typeof metricsSortable[number]
+type ExtractorNameNonSortable = typeof metricsNonSortable[number]
+export type ExtractorName = ExtractorNameNonSortable | ExtractorNameSortable
 
 type RequireKeys<T, R extends keyof T> = T & { [K in R]-?: T[K] }
 
@@ -37,13 +39,11 @@ interface ExtractorSortable extends ExtractorBase {
 }
 
 interface ExtractorNonsortable extends ExtractorBase {
-  name: ExtractorName // title
+  name: ExtractorNameNonSortable
   extract: (repo: RepoFragment) => Metric
 }
 
-// type Extractor = ExtractorSortable
 type Extractor = ExtractorNonsortable | ExtractorSortable
-// type Extractor = ['name'] extends ExtractorNameSortable ? ExtractorNonsortable : ExtractorSortable
 
 export type FrameworkMetrics = Record<ExtractorName, Metric>
 
