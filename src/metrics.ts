@@ -87,29 +87,43 @@ export const metrics: Extractor[] = [
     name: 'forks',
     shortDesc: 'count',
     icon: octicons['repo-forked'].toSVG(),
-    extract: repo => ({ value: spaceFormatNumber(repo.forkCount) }),
+    extract: repo => ({
+      value: spaceFormatNumber(repo.forkCount),
+      sortValue: repo.forkCount,
+    }),
   },
   {
     name: 'issues',
     shortDesc: 'open',
     icon: octicons['issue-opened'].toSVG(),
-    extract: repo => ({ value: spaceFormatNumber(repo.issues.totalCount) }),
+    extract: repo => ({
+      value: spaceFormatNumber(repo.issues.totalCount),
+      sortValue: repo.issues.totalCount,
+    }),
   },
   {
     name: 'PRs',
     shortDesc: 'open',
     icon: octicons['git-pull-request'].toSVG(),
-    extract: repo => ({ value: repo.pullRequests.totalCount }),
+    extract: repo => ({
+      value: repo.pullRequests.totalCount,
+      sortValue: repo.pullRequests.totalCount,
+    }),
   },
   {
     name: 'commits',
     shortDesc: 'main branch',
     icon: octicons['git-commit'].toSVG(),
     extract: repo => {
-      if (!(repo.commits && 'history' in repo.commits)) return { value: undefined }
+      if (!(repo.commits && 'history' in repo.commits))
+        return {
+          value: undefined,
+          sortValue: 0,
+        }
 
       return {
         value: spaceFormatNumber(repo.commits.history.totalCount),
+        sortValue: repo.commits.history.totalCount,
       }
     },
   },
@@ -158,12 +172,18 @@ export const metrics: Extractor[] = [
   {
     name: 'created',
     shortDesc: 'time ago',
-    extract: repo => ({ value: formatTimeAgo(repo.createdAt) }),
+    extract: repo => ({
+      value: formatTimeAgo(repo.createdAt),
+      sortValue: new Date(repo.createdAt).getTime(),
+    }),
   },
   {
     name: 'updated',
     shortDesc: 'time ago',
-    extract: repo => ({ value: formatTimeAgo(repo.updatedAt) }),
+    extract: repo => ({
+      value: formatTimeAgo(repo.updatedAt),
+      sortValue: repo.updatedAt,
+    }),
   },
 ]
 
