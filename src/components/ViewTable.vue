@@ -1,26 +1,35 @@
 <script lang="ts" setup>
-import { metrics } from '@/metrics'
+import { metrics, metricsSortable } from '@/metrics'
 import type { FrameworkMetrics } from '@/metrics'
+import useSortable from './useSortable'
 
-defineProps<{ data: FrameworkMetrics[] }>()
+const props = defineProps<{ data: FrameworkMetrics[] }>()
+
+const { dataSorted, toggleSort, getSorterClass } = useSortable(props.data)
 </script>
 
 <template lang="pug">
 table
   thead
     tr.theader
-      th(v-for="m in metrics" :class="m.name")
+      th(
+        v-for="m in metrics"
+        :class="[m.name, {sortable: metricsSortable.includes(m.name)}, getSorterClass(m.name)]"
+        @click="() => toggleSort(m.name)"
+      )
         //- div(v-if="m.icon" v-html="m.icon")
         div.name {{m.name}}
         div(v-if="m.shortDesc").info {{m.shortDesc}}
   tbody
-    tr(v-for="repo in data").entry
+    tr(v-for="repo in dataSorted").entry
       td(v-for="m in metrics" :class="m.name")
         div(v-if="repo[m.name].html" v-html="repo[m.name].value").cell-wrapper
         template(v-else) {{repo[m.name].value}}
 </template>
 
 <style lang="postcss">
+@import './sortable.pcss';
+
 .cell-wrapper {
   display: flex;
 
@@ -136,13 +145,16 @@ th {
   & .info {
     /* font-weight: normal; */
     font-size: 0.65em;
-    opacity: 0.35;
+    opacity: 0.4;
   }
 
   &:not(:last-of-type) {
     /* border-right: 2px hsl(0, 5%, 89%) solid; */
     border-right: 2px hsl(210, 9%, 29%) solid;
   }
+
+  user-select: none;
+  cursor: default;
 }
 
 /* upper corners */
