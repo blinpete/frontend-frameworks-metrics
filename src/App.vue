@@ -15,8 +15,7 @@ header
   a.this-repo-link(href="https://github.com/blinpete/frontend-frameworks-stats")
     span(v-html="octicons['mark-github'].toSVG({width: 30})")
     span(v-html="octicons['mark-github'].toSVG({width: 30})").inset
-main
-  ViewTable(v-if="data" :data="data")
+ViewTable(v-if="data" :data="data").main
 footer
   div.sign Built with #[span(v-html="heartIcon").heart] on top of #[a.api(href="https://docs.github.com/en/graphql") GitHub API]
 </template>
@@ -76,7 +75,7 @@ header {
 footer {
   bottom: 0;
 }
-main {
+.main {
   margin: 150px auto;
 }
 /* -------------------------------------- */
@@ -181,7 +180,7 @@ footer {
 
 /* large screen */
 @media (min-height: 1079px) {
-  main {
+  .main {
     margin: 200px auto;
   }
 
@@ -219,7 +218,7 @@ footer {
     margin-top: 70px;
   }
 
-  main {
+  .main {
     margin-top: 200px;
   }
 }
