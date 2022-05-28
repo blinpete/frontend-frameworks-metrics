@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { metrics, metricsSortable } from '@/metrics'
 import type { FrameworkMetrics } from '@/metrics'
-import useSortable from './useSortable'
+import useSortable, { includes } from './useSortable'
 
 const props = defineProps<{ data: FrameworkMetrics[] }>()
 
@@ -14,7 +14,7 @@ table
     tr.theader
       th(
         v-for="m in metrics"
-        :class="[m.name, {sortable: metricsSortable.includes(m.name)}, getSorterClass(m.name)]"
+        :class="[m.name, {sortable: includes(metricsSortable, m.name)}, getSorterClass(m.name)]"
         @click="() => toggleSort(m.name)"
       )
         //- div(v-if="m.icon" v-html="m.icon")
