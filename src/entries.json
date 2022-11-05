@@ -11,5 +11,6 @@
   { "owner": "solidjs", "repo": "solid" },
   { "owner": "emberjs", "repo": "ember.js" },
   { "owner": "meteor", "repo": "meteor" },
-  { "owner": "elm", "repo": "core" }
+  { "owner": "elm", "repo": "core" },
+  { "owner": "preactjs", "repo": "preact" }
 ]
